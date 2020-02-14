@@ -1,4 +1,5 @@
 import amqp from "amqplib";
+import Socket from "./Socket.class";
 
 class Cyborg {
   amqp = amqp;
@@ -27,7 +28,12 @@ class Cyborg {
     const channel = await this.getChannel();
     await channel.consume(queueName, msg => {
       const content = msg.content.toString();
-      console.log(`[Worker][Queue-${queueName}] Message processed: `, content);
+
+      
+        console.log(`[Worker][Queue-${queueName}] Message processed: `, content);
+        
+      
+      
       channel.ack(msg);
     });
     console.info(`[Worker][Queue-${queueName}] Listening...`);
